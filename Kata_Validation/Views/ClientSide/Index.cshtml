@@ -24,7 +24,6 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <h2>@ViewBag.Title</h2>
-<p>Page loaded: @DateTime.Now.ToLongTimeString()</p><p>
 
     <strong>Information:</strong> <br />
     When <em>Html.EnableClientValidation</em> is <em>true</em> and <em>Html.EnableUnobtrusiveJavaScript</em> is <em>false</em>
@@ -43,6 +42,10 @@
     <br />
     <br />
     Note, that when unobtrusive is on, these messages will <strong>not</strong> appear. This makes sense as these messages are on various form-elements in stead.
+
+    <br />
+    <br />
+    Another note: if jquery validation or jquery validation unobtrusive is omitted - no clientside validation will occur.
 </p>
 
 

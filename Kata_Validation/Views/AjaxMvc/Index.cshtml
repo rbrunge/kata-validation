@@ -1,0 +1,116 @@
+﻿@model Kata_Validation.Models.TestModelAnnotated
+
+@{
+    ViewBag.Title = "Ajax Mvc Validation";
+}
+@{
+    // Collects error from ModelState. If EnableUnobtrusiveJavaScript is false, then you can
+    // see all the error messages in the bottom of the page
+    Html.EnableClientValidation(true);
+
+    // Puts error messages in attributes in the form elements.
+    Html.EnableUnobtrusiveJavaScript(true);
+
+    // Client side will never work unless jQuery validate is included. See other exmple
+}
+<h2>@ViewBag.Title</h2>
+
+<p>
+    In this case, validation is happening on the server side always. Data is posted to the backend via ajax and if there are 
+    errors these are sent back to the UI. The UI maps the errors to the correct field.
+    <br />
+    <br />
+    This will work since we have omitted the <em>jquery validation</em> and <em>jquery validation unobtrusive</em> libraries.
+
+    Needed to install this to get Ajax.BeginForm to work:
+    <code>Install-Package Microsoft.jQuery.Unobtrusive.Ajax</code>
+</p>
+<p>
+    Links
+</p>
+<p>
+    <ul>
+        <li><a href="http://forums.asp.net/t/1926186.aspx?What+does+EnableClientValidation+and+EnableUnobtrusiveJavaScript+actually+do+">What does EnableClientValidation and EnableUnobtrusiveJavaScript actually do?</a></li>
+    </ul>
+</p>
+
+@section scripts
+{
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        function onBegin() {
+            $("#divMsg").append("<h3>Beginning Ajax request.</h3>");
+        }
+        function onComplete() {
+            $("#divMsg").append("<h3>Completing Ajax request.</h3>");
+        }
+        function onSuccess(data) {
+            if (data.result == "error") {
+                $.each(data.errors, function(i, item) {
+                    $('span[data-valmsg-for=' + item.MemberNames[0] + ']').html(item.ErrorMessage);
+                });
+            }
+            if (data.result == "success") {
+                $("#divMsg").append("<h3>Ajax request successful.  <a href='ajaxmvc/show?id=" + data.guid + "'>See post</a> </h3>");
+            }
+        }
+        function onFailure() {
+            $("#divMsg").append("<h3>Ajax request failed.</h3>");
+        }
+    </script>
+}
+@{
+    var ajaxOptions = new AjaxOptions
+    {
+        AllowCache = false,
+        HttpMethod = "Post",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure"
+    };
+}
+@using (Ajax.BeginForm("index", "AjaxMvcSide", ajaxOptions, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Name</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-md", placeholder = "Full name" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Email</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-md", placeholder = "E-mail address" })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Your age</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control input-md", placeholder = "Age" })
+                @Html.ValidationMessageFor(m => m.Age)
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </fieldset>
+}
+<div id="divMsg"></div>

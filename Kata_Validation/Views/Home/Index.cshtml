@@ -30,12 +30,12 @@
     <div class="col-md-4">
         <h2>Ajax MVC @@Html.AjaxForm ...</h2>
         <p></p>
-        <p><a class="btn btn-default" href="#1">Go</a></p>
+        @Html.ActionLink("Go", "index", "AjaxMvc", null, new { @class = "btn btn-default" })
     </div>
     <div class="col-md-4">
         <h2>Ajax with jQuery</h2>
         <p></p>
-        <p><a class="btn btn-default" href="#1">Go</a></p>
+        @Html.ActionLink("Go", "index", "AjaxJquery", null, new { @class = "btn btn-default" })
     </div>
 
 </div>

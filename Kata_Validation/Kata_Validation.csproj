@@ -112,6 +112,8 @@
     <Compile Include="App_Start\GlobalVariables.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AjaxJqueryController.cs" />
+    <Compile Include="Controllers\AjaxMvcController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ClientSideController.cs" />
     <Compile Include="Controllers\ServerSideController.cs" />
@@ -119,7 +121,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ValidationHelper.cs" />
+    <Compile Include="Models\ITestModel.cs" />
     <Compile Include="Models\ModelAnnotated.cs" />
+    <Compile Include="Models\TestModelNotAnnotated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +140,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -162,6 +169,10 @@
     <Content Include="Views\ServerSide\Show.cshtml" />
     <Content Include="Views\ClientSide\Index.cshtml" />
     <Content Include="Views\ClientSide\Show.cshtml" />
+    <Content Include="Views\AjaxMvc\Index.cshtml" />
+    <Content Include="Views\AjaxMvc\Show.cshtml" />
+    <Content Include="Views\AjaxJquery\Index.cshtml" />
+    <Content Include="Views\AjaxJquery\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
