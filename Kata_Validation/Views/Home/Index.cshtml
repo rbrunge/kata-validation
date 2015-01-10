@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>KATA: Validation</h1>
+    <p class="lead">This is the result of my kata for validating various aspecs.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>HTML5 validation</h2>
+        <p>Simplest form of validatation using HTML5 attributes like required</p>
+        <p>
+            @Html.ActionLink("Go", "index", "HtmlFive", null, new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Server side validation</h2>
+        <p>No client validation at all - just pure server side</p>
+        @Html.ActionLink("Go", "index", "ServerSide", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>Client side Validation with jQuery Validation</h2>
+        <p></p>
+        @Html.ActionLink("Go", "index", "ClientSide", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Ajax MVC @@Html.AjaxForm ...</h2>
+        <p></p>
+        <p><a class="btn btn-default" href="#1">Go</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Ajax with jQuery</h2>
+        <p></p>
+        <p><a class="btn btn-default" href="#1">Go</a></p>
+    </div>
+
+</div>

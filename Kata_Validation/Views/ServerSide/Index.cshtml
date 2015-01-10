@@ -1,0 +1,72 @@
+﻿@model Kata_Validation.Models.TestModelAnnotated
+
+    @{
+        ViewBag.Title = "Server Side Validation";
+    }
+    @{
+        // Collects error from ModelState. If EnableUnobtrusiveJavaScript is false, then you can
+        // see all the error messages in the bottom of the page
+        Html.EnableClientValidation(false);
+
+        // Puts error messages in attributes in the form elements.
+        Html.EnableUnobtrusiveJavaScript(false);
+
+    // Client side will never work unless jQuery validate is included. See other exmple
+    }
+
+    <h2>@ViewBag.Title</h2>
+    <p>Page loaded: @DateTime.Now.ToLongTimeString()</p>
+
+    <p>
+        Links
+    </p>
+    <p>
+        <ul>
+            <li><a href="http://forums.asp.net/t/1926186.aspx?What+does+EnableClientValidation+and+EnableUnobtrusiveJavaScript+actually+do+">What does EnableClientValidation and EnableUnobtrusiveJavaScript actually do?</a></li>
+        </ul>
+    </p>
+
+    @using (Html.BeginForm("index", "ServerSide", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend></legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Name</label>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-md", placeholder = "Full name" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Email</label>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-md", placeholder = "E-mail address" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Your age</label>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control input-md", placeholder = "Age" })
+                    @Html.ValidationMessageFor(m => m.Age)
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="singlebutton"></label>
+                <div class="col-md-4">
+                    <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    }

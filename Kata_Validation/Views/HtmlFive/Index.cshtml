@@ -1,0 +1,77 @@
+﻿@model Kata_Validation.Models.ITestModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+@section scripts
+{
+    <script>
+        var email = document.getElementById("Email");
+        email.oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                if (e.target.value.length == 0) {
+                    e.target.setCustomValidity("HTML5 custom message - required");
+                } else {
+                    e.target.setCustomValidity("HTML5 custom message - Please enter a valid eMail address");
+                }
+            };
+        }
+    </script>
+}
+
+
+<h2>HTML5 validation - simple</h2>
+<p>
+    Links
+</p>
+<p>
+    <ul>
+        <li><a href="http://www.the-art-of-web.com/html/html5-form-validation/">http://www.the-art-of-web.com/html/html5-form-validation/</a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+    </ul>
+</p>
+
+@using (Html.BeginForm("index", "HtmlFive", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Name</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-md", placeholder = "Full name", required = "required" })
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Email</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Email, new { type = "email", @class = "form-control input-md", placeholder = "E-mail address", required = "required" })
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Your age</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control input-md", placeholder = "Age", required = "required" })
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </fieldset>
+}

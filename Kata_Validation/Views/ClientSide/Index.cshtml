@@ -1,0 +1,101 @@
+﻿@model Kata_Validation.Models.TestModelAnnotated
+
+@{
+    ViewBag.Title = "Client Side Validation";
+}
+@{
+    // Collects error from ModelState. If EnableUnobtrusiveJavaScript is false, then you can
+    // see all the error messages in the bottom of the page
+    Html.EnableClientValidation(true);
+    // or HtmlHelper.ClientValidationEnabled = true;
+
+    // Puts error messages in attributes in the form elements.
+    Html.EnableUnobtrusiveJavaScript(true);
+    // or HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+
+    // Client side will never work unless jQuery validate is included. See other exmple
+}
+
+@*// Need javascript validation files. If not included, markup is made but no client action is
+    // happening. Of course server side will still kick in.
+*@
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<h2>@ViewBag.Title</h2>
+<p>Page loaded: @DateTime.Now.ToLongTimeString()</p><p>
+
+    <strong>Information:</strong> <br />
+    When <em>Html.EnableClientValidation</em> is <em>true</em> and <em>Html.EnableUnobtrusiveJavaScript</em> is <em>false</em>
+    errormessages are generated right after the form like this:
+
+    <textarea cols="80" rows="5">
+        <script type="text/javascript">
+            //<![CDATA[
+            if (!window.mvcClientValidationMetadata) { window.mvcClientValidationMetadata = []; }
+            window.mvcClientValidationMetadata.push({ "Fields": [{ "FieldName": "Name", "ReplaceValidationMessageContents": true, "ValidationMessageId": "Name_validationMessage", "ValidationRules": [{ "ErrorMessage": "The Name field is required.", "ValidationParameters": {}, "ValidationType": "required" }] }, { "FieldName": "Email", "ReplaceValidationMessageContents": true, "ValidationMessageId": "Email_validationMessage", "ValidationRules": [{ "ErrorMessage": "The Email field is required.", "ValidationParameters": {}, "ValidationType": "required" }, { "ErrorMessage": "The Email field is not a valid e-mail address.", "ValidationParameters": {}, "ValidationType": "email" }] }, { "FieldName": "Age", "ReplaceValidationMessageContents": true, "ValidationMessageId": "Age_validationMessage", "ValidationRules": [{ "ErrorMessage": "The field Age must be between 0 and 120.", "ValidationParameters": { "min": 0, "max": 120 }, "ValidationType": "range" }, { "ErrorMessage": "The Age field is required.", "ValidationParameters": {}, "ValidationType": "required" }, { "ErrorMessage": "The field Age must be a number.", "ValidationParameters": {}, "ValidationType": "number" }] }], "FormId": "form0", "ReplaceValidationSummary": false });
+            //]]>
+        </script>
+    </textarea>
+
+    This can be useful is extra validation is added to ModelState and custom javascript is reading this. <br />
+    <br />
+    <br />
+    Note, that when unobtrusive is on, these messages will <strong>not</strong> appear. This makes sense as these messages are on various form-elements in stead.
+</p>
+
+
+<p>
+    Links
+</p>
+<p>
+    <ul>
+        <li><a href="http://forums.asp.net/t/1926186.aspx?What+does+EnableClientValidation+and+EnableUnobtrusiveJavaScript+actually+do+">What does EnableClientValidation and EnableUnobtrusiveJavaScript actually do?</a></li>
+    </ul>
+</p>
+
+@using (Html.BeginForm("index", "ClientSide", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Name</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-md", placeholder = "Full name" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Email</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-md", placeholder = "E-mail address" })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Your age</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control input-md", placeholder = "Age" })
+                @Html.ValidationMessageFor(m => m.Age)
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton"></label>
+            <div class="col-md-4">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </fieldset>
+}

@@ -1,0 +1,44 @@
+﻿@model Kata_Validation.Models.ITestModel
+
+@{
+    ViewBag.Title = "HTML5 validation";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<form>
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Text input-->
+        <div class="form-group row">
+            <label class="col-md-4 control-label">Name</label>
+            <div class="col-md-4">
+                <div class="form-control input-md">
+                    @Html.DisplayFor(m => m.Name)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 control-label">Email</label>
+            <div class="col-md-4">
+                <div class="form-control input-md">
+                    @Html.DisplayFor(m => m.Email)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 control-label">Age</label>
+            <div class="col-md-4">
+                <div class="form-control input-md">
+                    @Html.DisplayFor(m => m.Age)
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
